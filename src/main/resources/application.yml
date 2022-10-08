@@ -1,12 +1,15 @@
 server:
   port: 1111
+  servlet:
+    # 配置访问路径，如果配置该选项，则访问后端系统是需要加下配置的路径
+    context-path: /XUpdateService
 
 spring:
     datasource:
         name: XUpdateService
-        url: jdbc:mysql://localhost:3306/xupdate?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+        url: jdbc:mysql://10.0.27.38:3306/xupdate?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
         username: root
-        password: 123456
+        password: Insigma_2021
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -31,8 +34,9 @@ spring:
         multipart:
             enabled: true
             file-size-threshold: 2KB
-            max-file-size: 10MB
-            max-request-size: 100MB
+            # 如果上传的APK包比较大，需要调大上传文件大小上限和请求体大小上限
+            max-file-size: 500MB
+            max-request-size: 500MB
     mvc:
         view:
           prefix: classpath:/templates/
@@ -49,7 +53,12 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
 
-
+# 上传APK 包保存地址
 upload:
-  file-directory: ./uploads
+#  file-directory: ./uploads
+  file-directory: /data/appPackage
   keep-name: true
+
+# APK 包下载URL接口地址
+download:
+  domain: http://10.0.21.169:1111/update/apk/
