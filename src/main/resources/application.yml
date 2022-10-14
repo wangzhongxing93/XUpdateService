@@ -7,6 +7,7 @@ server:
 spring:
     datasource:
         name: XUpdateService
+        # 开发环境配置
         url: jdbc:mysql://10.0.27.38:3306/xupdate?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
         username: root
         password: Insigma_2021
@@ -61,4 +62,5 @@ upload:
 
 # APK 包下载URL接口地址
 download:
-  domain: http://10.0.21.169:1111/update/apk/
+  # 开发环境地址
+  domain: http://10.0.27.16/XUpdateService/update/apk/
