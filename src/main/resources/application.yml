@@ -5,43 +5,47 @@ server:
     context-path: /XUpdateService
 
 spring:
-    datasource:
-        name: XUpdateService
-        # 开发环境配置
-        url: jdbc:mysql://10.0.27.38:3306/xupdate?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-        username: root
-        password: Insigma_2021
-        # 使用druid数据源
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        filters: stat
-        maxActive: 20
-        initialSize: 1
-        maxWait: 60000
-        minIdle: 1
-        timeBetweenEvictionRunsMillis: 60000
-        minEvictableIdleTimeMillis: 300000
-        validationQuery: select 'x'
-        testWhileIdle: true
-        testOnBorrow: false
-        testOnReturn: false
-        poolPreparedStatements: true
-        maxOpenPreparedStatements: 20
-    http:
-        multipart:
-            max-file-size: 100MB
-            max-request-size: 1000MB
-    servlet:
-        multipart:
-            enabled: true
-            file-size-threshold: 2KB
-            # 如果上传的APK包比较大，需要调大上传文件大小上限和请求体大小上限
-            max-file-size: 500MB
-            max-request-size: 500MB
-    mvc:
-        view:
-          prefix: classpath:/templates/
-          suffix: .html
+  datasource:
+    name: XUpdateService
+    # 开发环境配置
+#    url: jdbc:mysql://10.0.27.38:3306/xupdate?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+#    username: root
+#    password: Insigma_2021
+    # 线上环境配置
+    url: jdbc:mysql://10.0.40.99:3306/xupdate?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true&useSSL=false
+    username: insigmaapp
+    password: Insigma_2021
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  http:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      # 如果上传的APK包比较大，需要调大上传文件大小上限和请求体大小上限
+      max-file-size: 500MB
+      max-request-size: 500MB
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
 
 mybatis:
   mapper-locations: classpath:mapping/*.xml
@@ -49,18 +53,20 @@ mybatis:
 
 #pagehelper
 pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 
 # 上传APK 包保存地址
 upload:
-#  file-directory: ./uploads
+  #  file-directory: ./uploads
   file-directory: /data/appPackage
   keep-name: true
 
 # APK 包下载URL接口地址
 download:
   # 开发环境地址
-  domain: http://10.0.27.16/XUpdateService/update/apk/
+  #  domain: http://10.0.27.16/XUpdateService/update/apk/
+  # 线上地址
+  domain: https://indigital.insigma.com.cn/XUpdateService/update/apk/
